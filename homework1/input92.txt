@@ -1,0 +1,22 @@
+DFS
+A
+Z
+10
+A B 4
+A C 3
+A D 2
+B E 3
+B Z 1
+C E 4
+C Z 2
+D E 2
+D Z 2
+E F 2
+7
+A 5
+B 4
+C 3
+D 2
+E 1
+F 1
+Z 0

@@ -1,0 +1,20 @@
+DFS
+S
+Z
+8
+S A 6
+S B 4
+B C 3
+A C 8
+C E 2
+C D 9
+D Z 5
+E Z 2
+7
+S 7
+A 6
+B 6
+C 3
+D 2
+E 1
+Z 0

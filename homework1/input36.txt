@@ -1,0 +1,16 @@
+a*
+S
+G
+6
+S A 1
+S B 1
+A S 1
+A B 1
+B C 1
+B G 1
+5
+S 8
+A 6
+B 4
+C 2
+G 0

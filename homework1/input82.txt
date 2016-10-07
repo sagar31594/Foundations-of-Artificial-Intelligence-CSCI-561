@@ -1,0 +1,27 @@
+UCS
+Arad
+Bucharest
+12
+Arad Zerind 75
+Riminoca Craiova 146
+Sibiu Arad 140
+Arad Sibiu 140
+Sibiu Oradea 151
+Piseti Bucharest 101
+Arad Timisora 118
+Sibiu Riminoca 80
+Fagaras Sibiu 99
+Riminoca Piseti 97
+Sibiu Fagaras 99
+Fagaras Bucharest 211
+10
+Arad 366
+Zerind 374
+Riminoca 193
+Craiova 160
+Sibiu 120
+Timisora 329
+Fagaras 178
+Piseti 98
+Oradea 380
+Bucharest 0

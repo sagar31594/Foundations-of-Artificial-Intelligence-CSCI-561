@@ -1,0 +1,19 @@
+BFS
+A
+G
+7
+A B 5
+B C 3
+C D 2
+A E 3
+E F 3
+F G 8
+D G 1
+7
+A 4
+B 6
+C 5
+D 4
+E 3
+F 1
+G 0

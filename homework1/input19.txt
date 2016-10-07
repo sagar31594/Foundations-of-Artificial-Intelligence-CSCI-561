@@ -1,0 +1,23 @@
+bfS
+A
+H
+10
+A B 1
+A C 1
+B E 1
+C G 1
+C F 1
+B D 1
+E H 1
+F H 1
+G H 1
+D H 1
+8
+A 7
+B 6
+C 3
+D 8
+E 2
+F 4
+G 9
+H 1

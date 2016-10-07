@@ -1,0 +1,16 @@
+UCS
+S
+D
+6
+S A 2
+S C 7
+A B 3
+A C 3
+B D 4
+C D 4
+5
+S 3
+A 6
+B 5
+C 4
+D 2

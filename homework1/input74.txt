@@ -1,0 +1,15 @@
+BFS
+A
+E
+5
+A C 3
+A B 5
+B D 1
+C E 1
+D E 1
+5
+A 4
+B 1
+C 1
+D 2
+E 0

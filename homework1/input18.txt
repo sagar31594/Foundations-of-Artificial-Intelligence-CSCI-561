@@ -1,0 +1,13 @@
+bfS
+A
+C
+4
+A B 1
+B D 2
+A C 5
+D C 2
+4
+A 7
+B 5
+C 3
+D 0
