@@ -110,7 +110,6 @@ def getAstarSolution(traceParentsWithCost, state, sundayTrafficLines):
 	solution = temp + ' 0' + solution
 	return solution	
 
-
 def bfs(startState, goalState, trafficLines):
 	'''
 	Implements Breadth First Search to find the shortest path from startState to goalState using trafficLines
@@ -128,18 +127,15 @@ def bfs(startState, goalState, trafficLines):
 		It keeps track of the depth traversed using the variable 'cost'
 		It keeps track of the parents of every generated node along with the associated cost using the dictionary traceParentsWithCost
 	'''
-	#solution = ''
 	cost = 0
 	if startState == goalState:
 		return startState + ' ' + str(cost)
-	#	return solution
 	frontier = list()
 	explored = list()
 	traceParentsWithCost = dict()
 	frontier.append((startState, cost))
 	while len(frontier) != 0:
 		node, cost = frontier.pop(0)
-		#solution += node + ' ' + str(cost) + '\n'
 		cost += 1
 		explored.append(node)
 		'''
@@ -152,18 +148,12 @@ def bfs(startState, goalState, trafficLines):
 		openNodes = [x[0] for x in frontier]
 		for trafficLine in trafficLines[node]:
 			if trafficLine[0] not in openNodes and trafficLine[0] not in explored:
-				#print "child of ", node, ' is: ', trafficLine[0]
-				#print "explored: ", explored
-				#print "frontier: ", frontier
 				traceParentsWithCost[trafficLine[0]] = (node, cost)
 				if trafficLine[0] == goalState:
-					#solution += node + ' ' + str(cost) + '\n'
 					solution = getSolution(traceParentsWithCost, trafficLine[0])
 					return solution
 				else:
 					frontier.append((trafficLine[0], cost))
-					#print "frontier: ", frontier
-
 
 def dfs(startState, goalState, trafficLines):
 	'''
@@ -185,39 +175,26 @@ def dfs(startState, goalState, trafficLines):
 	cost = 0
 	if startState == goalState:
 		return startState + ' ' + str(cost)
-	#	return solution
 	frontier = list()
 	explored = list()
 	traceParentsWithCost = dict()
 	frontier.insert(0, (startState, cost))
 	while len(frontier) != 0:
 		node, cost = frontier.pop(0)
-		#print "current node: ", node
 		if node == goalState:
 			solution = getSolution(traceParentsWithCost, node)
 			return solution
-		#solution += node + ' ' + str(cost) + '\n'
 		cost += 1
 		explored.append(node)
 		tempChildrenList = list()
 		openNodes = [x[0] for x in frontier]
-		#print 'parent: ', node
 		for trafficLine in trafficLines[node]:
-			#print 'child: ', trafficLine[0]
-			#print frontier
-			if trafficLine[0] not in openNodes and trafficLine[0] not in explored:#trafficLine[0] not in explored
+			if trafficLine[0] not in openNodes and trafficLine[0] not in explored:
 				traceParentsWithCost[trafficLine[0]] = (node, cost)
 				'''
 				Moved goal test out of here since we check that when new children are generated in bfs not in dfs. We get a wrong solution
 				for the file 'input2.txt'.
 				'''
-				#print traceParentsWithCost
-				#if trafficLine[0] == goalState:								
-				#	#solution += node + ' ' + str(cost) + '\n'
-				#	solution = getSolution(traceParentsWithCost, trafficLine[0])
-				#	return solution
-				#else:
-				#	tempChildrenList.append((trafficLine[0], cost))
 				tempChildrenList.append((trafficLine[0], cost))
 		frontier = tempChildrenList + frontier			
 
@@ -241,7 +218,6 @@ def ucs(startState, goalState, trafficLines):
 	cost = 0
 	if startState == goalState:
 		return startState + ' ' + str(cost)
-	#	return solution
 	frontier = PriorityQueue()
 	'''
 	Correction:
@@ -252,46 +228,28 @@ def ucs(startState, goalState, trafficLines):
 			explored <- DeleteNode(explored, node)
 			frontier <- QueuingFn(frontier, child)
 	'''
-	#explored = list()
 	explored = dict()
 	traceParentsWithCost = dict()
 	frontier.insert(cost, startState)
 	while frontier.length() != 0:
-		#print 'frontier at beginning: '
-		#frontier.printqueue()
-		#raw_input("press enter")
 		cost, node = frontier.delete()
-		#solution += node + ' ' + str(cost) + '\n'
-		#cost += 1
 		if node == goalState:
 			solution = getSolution(traceParentsWithCost, node)
 			return solution
-		#explored.append(node)
 		explored[node] = cost
-		openNodes = frontier.findOpenNodes()#[x[0] for x in frontier]
+		openNodes = frontier.findOpenNodes()
 		for trafficLine in trafficLines[node]:
-			if trafficLine[0] not in explored:#trafficLine[0] not in openNodes and trafficLine[0] not in explored:
-				#print "child of ", node, ' is: ', trafficLine[0]
-				#print "explored: ", explored
-				#print "frontier: ", frontier
-				#traceParentsWithCost[trafficLine[0]] = (node, cost)
-				#if trafficLine[0] == goalState:
-					#solution += node + ' ' + str(cost) + '\n'
-					#solution = getSolution(traceParentsWithCost, trafficLine[0])
-					#return solution
+			if trafficLine[0] not in explored:
 				if trafficLine[0] not in openNodes:
 					frontier.insert(cost+trafficLine[1], trafficLine[0])
 					traceParentsWithCost[trafficLine[0]] = (node, cost+trafficLine[1])	
 				else:
-					#frontier.append((trafficLine[0], cost))
-					#print "frontier: ", frontier
 					frontier.replaceDecision(trafficLine[0], cost+trafficLine[1], node, traceParentsWithCost)
 			else:
 				if (cost+trafficLine[1]) < explored[trafficLine[0]]:
 					explored.pop(trafficLine[0])
 					frontier.insert(cost+trafficLine[1], trafficLine[0])
 					traceParentsWithCost[trafficLine[0]] = (node, cost+trafficLine[1])	
-		#frontier.printqueue()
 
 def astar(startState, goalState, trafficLines, sundayTrafficLines):
 	'''
@@ -313,11 +271,9 @@ def astar(startState, goalState, trafficLines, sundayTrafficLines):
 		It keeps track of the distance traversed till the current state using the variable 'cost'
 		It keeps track of the parents of every generated node along with the associated accumulated cost plus the heuristic using the dictionary traceParentsWithCost
 	'''	
-	#cost = 0
 	cost = sundayTrafficLines[startState]
 	if startState == goalState:
 		return startState + ' ' + str(cost-sundayTrafficLines[startState])
-	#	return solution
 	frontier = PriorityQueue()
 	'''
 	Correction:
@@ -328,52 +284,29 @@ def astar(startState, goalState, trafficLines, sundayTrafficLines):
 			explored <- DeleteNode(explored, node)
 			frontier <- QueuingFn(frontier, child)
 	'''
-	#explored = list()
 	explored = dict()
 	traceParentsWithCost = dict()
 	frontier.insert(cost, startState)
 	while frontier.length() != 0:
-		#print 'frontier at beginning: '
-		#frontier.printqueue()
-		#raw_input("press enter")
 		cost, node = frontier.delete()
 		explored[node] = cost
-		#print 'explored: ', explored
 		cost -= sundayTrafficLines[node]
-		#solution += node + ' ' + str(cost) + '\n'
-		#cost += 1
 		if node == goalState:
 			solution = getAstarSolution(traceParentsWithCost, node, sundayTrafficLines)
 			return solution
-		#explored.append(node)
-		openNodes = frontier.findOpenNodes()#[x[0] for x in frontier]
+		openNodes = frontier.findOpenNodes()
 		for trafficLine in trafficLines[node]:
-			if trafficLine[0] not in explored:#trafficLine[0] not in openNodes and trafficLine[0] not in explored:
-				#print "child of ", node, ' is: ', trafficLine[0]
-				#print "explored: ", explored
-				#print "frontier: ", frontier
-				#traceParentsWithCost[trafficLine[0]] = (node, cost)
-				#if trafficLine[0] == goalState:
-					#solution += node + ' ' + str(cost) + '\n'
-					#solution = getSolution(traceParentsWithCost, trafficLine[0])
-					#return solution
+			if trafficLine[0] not in explored:
 				if trafficLine[0] not in openNodes:
-					#print trafficLine[0]
-					#print sundayTrafficLines[trafficLine[0]]
 					frontier.insert(cost+trafficLine[1]+sundayTrafficLines[trafficLine[0]], trafficLine[0])
 					traceParentsWithCost[trafficLine[0]] = (node, cost+trafficLine[1]+sundayTrafficLines[trafficLine[0]])	
-					#print traceParentsWithCost
 				else:
-					#frontier.append((trafficLine[0], cost))
-					#print "frontier: ", frontier
 					frontier.replaceDecision(trafficLine[0], cost+trafficLine[1]+sundayTrafficLines[trafficLine[0]], node, traceParentsWithCost)
 			else:
 				if (cost+trafficLine[1]+sundayTrafficLines[trafficLine[0]]) < explored[trafficLine[0]]:
 					explored.pop(trafficLine[0])
 					frontier.insert(cost+trafficLine[1]+sundayTrafficLines[trafficLine[0]], trafficLine[0])
 					traceParentsWithCost[trafficLine[0]] = (node, cost+trafficLine[1]+sundayTrafficLines[trafficLine[0]])
-		#print 'frontier with children: '
-		#frontier.printqueue()
 
 def main():
 	'''
@@ -419,7 +352,7 @@ def main():
 	f.write(solution)
 	f.close()	
 	
-	#f = open('input6.txt', 'r')
+	#For tesing purposes
 	'''
 	for i in range(190):
 		s = "input" + str(i) + ".txt"
@@ -464,10 +397,5 @@ def main():
 		print solution
 		#print '\n\n'
 		'''
-
-
-#	f = open('output.txt', 'w')
-#	s = algo + '\n' + startState + '\n' + goalState + '\n' + str(noOfLiveTrafficLines) + '\n' + str(trafficLines) + '\n' + str(noOfSundayTrafficLines) + '\n' + str(sundayTrafficLines)
-#	f.write(s)
 
 main()
